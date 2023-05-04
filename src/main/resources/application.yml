@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-Id: "${spring.application.name}-${server.port}-${spring.cloud.client.ip-address}"
+        prefer-ip-address: true
+        health-check-critical-timeout: "1m"
+      config:
+        fail-fast: true
+        enabled: true
+
+
+  activemq:
+    broker-url: "tcp://ifcs-activemq.zen-qa.apacqa.ec1.wexglobal.com:61616"
+  #WEXIEMicroservice:
+  #  url: "http://WEXIEMicroservice"
+  #WEXIFCSMircoservice:
+  #  url: "http://WEXIFCSMicroservice"
+  config:
+   import: "consul:"
+   #import: "consul:localhost:8500/config"
+  profiles:
+    active: ${MS_PROFILE_NAME:dev}
+  application:
+    name: @project.artifactId@
